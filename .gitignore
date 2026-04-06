@@ -1,1 +1,65 @@
-.vscode/
+# =========================
+# Build files
+# =========================
+build/
+bin/
+obj/
+out/
+*.o
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+
+# Compiled libraries
+*.a
+*.so
+
+# =========================
+# Arduino / PlatformIO
+# =========================
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# Arduino temporary build files
+*.ino.cpp
+
+# =========================
+# VS Code
+# =========================
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# =========================
+# C/C++ toolchain
+# =========================
+*.d
+*.su
+
+# GCC coverage/debug
+*.gcno
+*.gcda
+*.gcov
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+*.swp
