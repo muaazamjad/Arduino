@@ -1,33 +1,33 @@
 #include <Arduino.h>
+#include <PIRSensor.h>
 
-// put function declarations here:
-PinStatus lastPinStatus = HIGH;
+#define PIR_PIN 7
+
+// Define object of type PIRSensor
+PIRSensor mySensor;
+
 void setup()
 {
-  // Set Port 1 Pin 2 to Output
+  // Call PIRSensor contructor with pin number.
+  mySensor = PIRSensor(PIR_PIN);
+  mySensor.begin();
 
-  Serial.begin(115200);
+  // Set PIN 2 of Port 1 to Output
   R_PORT1->PDR_b.PDR2 = 1;
-  // Set PIN D2 To input and enable pull up resistor (High potential)
-  pinMode(PIN_D2, INPUT_PULLUP);
 }
 
 void loop()
 {
-
-  PinStatus pinStatus = digitalRead(PIN_D2);
-  // pinStatus Low = Button pressed
-  if (pinStatus == 0 && pinStatus != lastPinStatus)
+  if (mySensor.isMotionActive())
   {
+    // Set pin 2 of port 1 to high
     R_PORT1->PODR_b.PODR2 = 1;
-    lastPinStatus = pinStatus;
-    Serial.println("LED is on");
+
+    if (millis() - mySensor.getStartTime() >= 5000)
+    {
+      // Set pin 2 of port 1 to high
+      R_PORT1->PODR_b.PODR2 = 0;
+      mySensor.clearMotionState();
+    }
   }
-  // pinStatus High = Button not pressed
-  else if (pinStatus == 1 && pinStatus != lastPinStatus)
-  {
-    R_PORT1->PODR_b.PODR2 = 0;
-    lastPinStatus = pinStatus;
-  }
-  delay(50);
 }
